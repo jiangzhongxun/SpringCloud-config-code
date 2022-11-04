@@ -1,0 +1,45 @@
+server:
+  port: 9527
+
+spring:
+  application:
+    name: cloud-gateway
+
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true   #  开启从注册中心动态创建路由的功能，利用微服务名进行路由
+      routes:
+        - id: payment_routh  # payment_route   # 路由的 ID ，没有固定规则但要求唯一，建议配合服务名
+          #uri: http://localhost:8001           # 匹配后提供服务的路由地址
+          uri: lb://cloud-payment-service
+          predicates:
+            - Path=/payment/get/**             # 断言，路径相匹配的进行路由
+#            - After=2022-11-02T20:54:19.120+08:00[Asia/Shanghai]
+#            - Before=2022-11-02T20:54:19.120+08:00[Asia/Shanghai]
+#            - Between=2022-11-02T19:54:19.120+08:00[Asia/Shanghai],2022-11-02T20:54:19.120+08:00[Asia/Shanghai]
+
+        - id: payment_routh2  # payment_route  # 路由的 ID ，没有固定规则但要求唯一，建议配合服务名
+          #uri: http://localhost:8001           # 匹配后提供服务的路由地址
+          uri: lb://cloud-payment-service
+          # 断言
+          predicates:
+            - Path=/payment/lb/**         # 断言，路径相匹配的进行路由
+#            - Cookie=username,jzx         # 使用测试命令：curl http://localhost:9527/payment/lb --cookie "username=jzx"
+#            - Header=X-Request-Id, \d+    # 请求头要有 X-Request-Id 属性，并且值为整数的正则表达式。测试命令：curl http://localhost:9527/payment/lb -H "X-Request-Id:1234"
+#            - Host=**.atguigu.com         # 测试命令：curl http://localhost:9527/payment/lb -H "Host: www.atguigu.com"
+#            - Method=GET,POST             # 要求请求为 GET 或 POST 请求
+#            - Query=username, \d+         # 要有参数 username 并且值为整数的正则表达式。测试命令：curl http://localhost:9527/payment/lb?username=31
+          # 过滤器 GatewayFilter
+          filters:
+#            - AddRequestParameter=X-Request-Id,1024    # 过滤器工厂会在匹配的请求头加上一对请求头，名称为 X-Request-Id 值为 1024
+
+eureka:
+  instance:
+    hostname: cloud-gateway-service
+  client:   # 服务提供者provider注册进eureka服务列表内
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://eureka7001.com:7001/eureka
