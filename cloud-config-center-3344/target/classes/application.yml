@@ -4,7 +4,6 @@ server:
 spring:
   application:
     name: cloud-config-center   # 注册进 eureka 服务器的微服务名
-
   cloud:
     config:
       server:
@@ -15,9 +14,23 @@ spring:
             - springcloud-config
       # 读取分支
       label: master
+  # RabbitMQ 相关配置 ( 15672 是 web 管理界面的端口，5672 是 MQ 访问的端口 )
+  rabbitmq:
+    host: 192.168.1.66
+    #host: 192.168.0.66
+    port: 5672
+    username: admin
+    password: 123456
 
 # 服务注册到 eureka 地址
 eureka:
   client:
     service-url:
       defaultZone: http://localhost:7001/eureka
+
+# RabbitMQ 相关配置，暴露 bus 刷新配置的端点
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "bus-refresh"

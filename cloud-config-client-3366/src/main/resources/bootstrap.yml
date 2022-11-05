@@ -4,7 +4,6 @@ server:
 spring:
   application:
     name: config-client-3366
-
   cloud:
     # config 客户端配置
     config:
@@ -12,6 +11,13 @@ spring:
       name: config    # 配置文件名称
       profile: dev    #  读取后缀名称。 上述 3 个综合：master 分支上 config-dev.yml 的配置文件被读取 http://localhost:3344/master/config-dev.yml
       uri: http://localhost:3344    # 配置中心地址
+  # RabbitMQ 相关配置 ( 15672 是 web 管理界面的端口，5672 是 MQ 访问的端口 )
+  rabbitmq:
+    host: 192.168.1.66
+    #host: 192.168.0.66
+    port: 5672
+    username: admin
+    password: 123456
 
 # 服务注册到 eureka 地址
 eureka:
