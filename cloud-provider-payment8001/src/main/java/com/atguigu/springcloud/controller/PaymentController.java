@@ -31,6 +31,12 @@ public class PaymentController {
     @Resource
     private DiscoveryClient discoveryClient;
 
+    // zipkin + sleuth
+    @GetMapping("/payment/zipkin")
+    public String paymentZipkin() {
+        return "paymentZipkin server fall back 😁 O(∩_∩)O哈哈~";
+    }
+
     @PostMapping(value = "/payment/create")
     public CommonResult<Payment> create(@RequestBody Payment payment) {
         int result = paymentService.create(payment);
