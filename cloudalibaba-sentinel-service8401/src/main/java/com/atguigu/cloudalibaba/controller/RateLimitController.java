@@ -24,4 +24,10 @@ public class RateLimitController {
         return new CommonResult(444, exception.getClass().getCanonicalName() + "\t 服务不可用");
     }
 
+    @GetMapping("/rateLimit/byURL")
+    @SentinelResource(value = "byURL")
+    public CommonResult byURL() {
+        return new CommonResult(200, "按 URL 限流测试OK", new Payment(2021L, "serial002"));
+    }
+
 }
