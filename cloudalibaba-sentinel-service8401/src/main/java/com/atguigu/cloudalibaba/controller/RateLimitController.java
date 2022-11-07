@@ -30,4 +30,10 @@ public class RateLimitController {
         return new CommonResult(200, "按 URL 限流测试OK", new Payment(2021L, "serial002"));
     }
 
+    @GetMapping("/rateLimit/customBlockHandler")
+    @SentinelResource(value = "customBlockHandler")
+    public CommonResult customBlockHandler() {
+        return new CommonResult(200, "按客户自定义限流处理", new Payment(2022L, "serial003"));
+    }
+
 }
