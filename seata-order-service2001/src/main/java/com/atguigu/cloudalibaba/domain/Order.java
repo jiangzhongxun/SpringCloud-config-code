@@ -15,14 +15,29 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 public class Order {
 
+    /**
+     * 主键 id
+     */
     private Long id;
 
+    /**
+     * 用户 ID
+     */
     private Long userId;
 
+    /**
+     * 产品 ID
+     */
     private Long productId;
 
+    /**
+     * 订单数量
+     */
     private Integer count;
 
+    /**
+     * 订单金额
+     */
     private BigDecimal money ;
 
     /**
